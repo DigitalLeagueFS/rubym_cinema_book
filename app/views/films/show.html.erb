@@ -48,32 +48,44 @@
   </style>
 
 </head>
+
+<!--
+  Структура объекта
+  @films =>
+  [
+    {
+      'name' => "Союз спасения"
+      'limit' => "18"
+      'duration' => "180"
+      'genre' => "Комедия"
+      'producer' => "Никита Михалков"
+      ... (все поля таблицы films)
+      'sessions' => [ "08:30", "12:00", "18:00" ]   (время вегодняшних сеансов)
+    },
+    {
+    ...
+    },
+    ...
+  ]
+  -->
+
 <div class="films"><h1>Сегодня в прокате</h1></div>
 <table class="table_col">
-
   <!--<th>Название фильма</th> <th>Продолжительность</th>-->
+
   <tr>
     <% @films.each do |film| %>
-      <th><%= film.name %></th>
-
+    <th>
+      <table class="table_col">
+        <tr><th><%= film['name'] %> (<%= film['limit'] %>+)</th></tr>
+        <tr><th>Продолжительность:  <%= film['duration'] %></th></tr>
+        <tr><th>Cеансы сегодня:</th></tr>
+        <% film[:sessions].each do |session| %>
+          <tr><th> <%= session %> </th></tr>
+        <% end %>
+      </table>
+      </th>
     <% end %>
   </tr>
-  <tr>
-    <% @films.each do |film| %>
-      <td>Продолжительность: <%= film.duration %> мин</td>
-    <% end %></tr>
-  <tr>
-    <td>Время сеансов:</td>
-  </tr>
-  <tr>
-    <td>12:30</td>
-  </tr>
-  <tr>
-    <td>16:00</td>
-  </tr>
-  <tr>
-    <td>19:10</td>
-  </tr>
-
 </table>
 </html>
